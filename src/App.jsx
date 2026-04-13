@@ -7,6 +7,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [phones, setPhones] = useState("");
   const [status, setStatus] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleGenerate = async () => {
     try {
@@ -26,7 +27,7 @@ function App() {
       setStatus("⏳ Generating Google Form...");
 
       const response = await fetch(
-        "https://quiz-automation-backend.onrender.com/api/create-form",
+         `${API_URL}/api/create-form`,
         {
           method: "POST",
           headers: {
