@@ -61,13 +61,25 @@ function FileUpload({ onTextExtracted }) {
       }
 
       const result = await mammoth.extractRawText({ arrayBuffer });
-      const extractedText = result.value.trim();
+      let extractedText = result.value.trim();
 
       if (!extractedText) {
         setError("⚠️ No text content found in the document. Make sure the .docx file contains MCQ text.");
         setProcessing(false);
         return;
       }
+
+      // Fix mammoth merging lines: force newline before Q numbers and options
+      extractedText = extractedText
+        // Newline before question patterns like "Q. 17)" or "Q.1)" or "17)" or "17."
+        .replace(/(?<!\n)\s*(Q\.\s*\d+\))/gi, '\n$1')
+        .replace(/(?<!\n)\s*(\d+\.\s)/g, '\n$1')
+        .replace(/(?<!\n)\s*(\d+\)\s)/g, '\n$1')
+        // Newline before option letters A. B. C. D.
+        .replace(/(?<!\n)\s*([A-D]\.)\s/g, '\n$1 ')
+        // Clean up multiple blank lines
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
 
       onTextExtracted(extractedText);
       setProcessing(false);
