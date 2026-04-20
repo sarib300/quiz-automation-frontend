@@ -462,8 +462,8 @@ D. Peshawar`}</pre>
         <div className="footer-container">
           <div className="footer-left">
             <span className="footer-logo">
-              <span className="logo-ezee">Ezee</span>
-              <span className="logo-flow">Flow</span>
+              <span className="logo-ezee" style={{color:"#0F6B8D" , fontSize:"24px", fontWeight:"bold" , fontFamily:"'Inter', sans-serif" }}>Ezee</span>
+              <span className="logo-flow" style={{color:"#4CB9CD" , fontSize:"24px", fontWeight:"bold" , fontFamily:"'Inter', sans-serif"}}>Flow</span>
             </span>
             <p>© {new Date().getFullYear()} EzeeFlow. All rights reserved.</p>
           </div>
